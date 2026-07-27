@@ -1,0 +1,45 @@
+/* Estilos específicos para la página del Menú */
+.menu-container { 
+    max-width: 500px; 
+    margin: 40px auto; 
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.header-info {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#userEmail {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-btn {
+    background-color: #17a2b8;
+    padding: 15px;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.menu-btn:hover {
+    background-color: #138496;
+}

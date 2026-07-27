@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú Principal - IBIO</title>
+    <link rel="stylesheet" href="/style/Menu_principal.css">
+</head>
+<body>
+
+    <div class="menu-container">
+        <!-- Información Superior -->
+        <div class="header-info">
+            <h2>Panel de Control</h2>
+            <p>Usuario activo: <span id="userEmail">Cargando...</span></p>
+            <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
+        </div>
+        
+        <!-- Menú de Opciones -->
+        <nav class="main-menu">
+            <button class="menu-btn">Módulo 1: Encuestas</button>
+            <button class="menu-btn">Módulo 2: Resultados</button>
+            <button class="menu-btn">Módulo 3: Configuración</button>
+        </nav>
+    </div>
+
+     <!-- Script exclusivo para el menú -->
+    <script type="module" src="/js/menu_cierre.js"></script>
+</body>
+</html>

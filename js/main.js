@@ -14,42 +14,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// Referencias exclusivas de la página de inicio
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const statusMessage = document.getElementById('statusMessage');
 
-// Función de validación de seguridad de la contraseña
 const validarContrasena = (password) => {
-    if (password.length < 6) {
-        return "La contraseña debe tener al menos 6 caracteres.";
-    }
-    if (!/\d/.test(password)) {
-        return "La contraseña debe incluir al menos un número.";
-    }
-    if (!/[A-Z]/.test(password)) {
-        return "La contraseña debe incluir al menos una letra mayúscula.";
-    }
+    if (password.length < 6) return "La contraseña debe tener al menos 6 caracteres.";
+    if (!/\d/.test(password)) return "La contraseña debe incluir al menos un número.";
+    if (!/[A-Z]/.test(password)) return "La contraseña debe incluir al menos una letra mayúscula.";
     return "OK";
 };
 
-// Evento: Registrar Usuario
 document.getElementById('btnRegister').addEventListener('click', () => {
     const email = emailInput.value;
     const password = passwordInput.value;
     
-    // Ejecutamos la validación antes de contactar a Firebase
     const validacion = validarContrasena(password);
     if (validacion !== "OK") {
         statusMessage.textContent = validacion;
         statusMessage.style.color = "red";
-        return; // Detiene la ejecución si la contraseña es débil
+        return; 
     }
 
     statusMessage.textContent = "Procesando...";
     statusMessage.style.color = "black";
 
     createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
             statusMessage.textContent = `¡Registro exitoso!`;
             statusMessage.style.color = "green";
         })
@@ -59,17 +51,19 @@ document.getElementById('btnRegister').addEventListener('click', () => {
         });
 });
 
-// Evento: Iniciar Sesión
 document.getElementById('btnLogin').addEventListener('click', () => {
     const email = emailInput.value;
     const password = passwordInput.value;
-    statusMessage.textContent = "Procesando...";
+    statusMessage.textContent = "Verificando credenciales...";
     statusMessage.style.color = "black";
 
     signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            statusMessage.textContent = `¡Bienvenido! Sesión iniciada.`;
+        .then(() => {
+            statusMessage.textContent = `¡Acceso concedido! Redirigiendo...`;
             statusMessage.style.color = "green";
+            setTimeout(() => {
+                window.location.href = "menu.html";
+            }, 1000);
         })
         .catch((error) => {
             statusMessage.textContent = `Error al iniciar: ${error.message}`;
