@@ -17,13 +17,15 @@ const auth = getAuth(app);
 // Referencias exclusivas de la página del menú
 const userEmailSpan = document.getElementById('userEmail');
 const btnLogout = document.getElementById('btnLogout');
+const btnModulo1 = document.getElementById('btnModulo1'); // Nueva referencia
 
 // Protección de la ruta
 onAuthStateChanged(auth, (user) => {
     if (user) {
         userEmailSpan.textContent = user.email;
     } else {
-        window.location.href = "index.html";
+        // Redirige correctamente al archivo Inicio.html que está en la carpeta principal
+        window.location.href = "../Inicio.html";
     }
 });
 
@@ -33,3 +35,11 @@ btnLogout.addEventListener('click', () => {
         console.error("Error al cerrar sesión:", error);
     });
 });
+
+// Evento para redirigir a la página de encuestas
+if (btnModulo1) {
+    btnModulo1.addEventListener('click', () => {
+        // Redirige a Encuesta.html (ambos están en la misma carpeta 'pages')
+        window.location.href = "Encuesta.html";
+    });
+}

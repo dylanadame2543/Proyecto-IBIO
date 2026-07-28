@@ -26,6 +26,7 @@ const validarContrasena = (password) => {
     return "OK";
 };
 
+// Evento: Registrar Usuario
 document.getElementById('btnRegister').addEventListener('click', () => {
     const email = emailInput.value;
     const password = passwordInput.value;
@@ -42,8 +43,13 @@ document.getElementById('btnRegister').addEventListener('click', () => {
 
     createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-            statusMessage.textContent = `¡Registro exitoso!`;
+            statusMessage.textContent = `¡Registro exitoso! Redirigiendo...`;
             statusMessage.style.color = "green";
+            
+            // Redirección después del registro
+            setTimeout(() => {
+               window.location.href = "./pages/Menu_principal.html";
+            }, 1000);
         })
         .catch((error) => {
             statusMessage.textContent = `Error: ${error.message}`;
@@ -51,6 +57,7 @@ document.getElementById('btnRegister').addEventListener('click', () => {
         });
 });
 
+// Evento: Iniciar Sesión
 document.getElementById('btnLogin').addEventListener('click', () => {
     const email = emailInput.value;
     const password = passwordInput.value;
@@ -61,8 +68,10 @@ document.getElementById('btnLogin').addEventListener('click', () => {
         .then(() => {
             statusMessage.textContent = `¡Acceso concedido! Redirigiendo...`;
             statusMessage.style.color = "green";
+            
+            // Redirección después del inicio de sesión (Ruta corregida)
             setTimeout(() => {
-                window.location.href = "menu.html";
+                window.location.href = "./pages/Menu_principal.html";
             }, 1000);
         })
         .catch((error) => {

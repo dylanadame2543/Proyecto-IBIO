@@ -2,28 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal - IBIO</title>
-    <link rel="stylesheet" href="/style/Menu_principal.css">
+    <!-- Corrección: Se usan ../ para salir de la carpeta 'pages' y entrar a 'style' -->
+    <link rel="stylesheet" href="../style/Menu_principal.css">
 </head>
 <body>
-
-    <div class="menu-container">
-        <!-- Información Superior -->
-        <div class="header-info">
-            <h2>Panel de Control</h2>
-            <p>Usuario activo: <span id="userEmail">Cargando...</span></p>
-            <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
+<!-- Sección de Identidad Institucional -->
+        <div class="logos-container">
+            <img src="/img/LogoUPGOP.png" alt="Universidad Politécnica Gómez Palacio" class="logo-uni">
+            <img src="/img/IBIO.png" alt="Ingeniería en Biotecnología IBIO" class="logo-carrera">
         </div>
         
-        <!-- Menú de Opciones -->
-        <nav class="main-menu">
-            <button class="menu-btn">Módulo 1: Encuestas</button>
-            <button class="menu-btn">Módulo 2: Resultados</button>
-            <button class="menu-btn">Módulo 3: Configuración</button>
-        </nav>
-    </div>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="margin-top: 10px; margin-bottom: 5px; color: #002045;">Acceso Docente</h2>
+            <p style="color: #666; font-size: 0.9em; margin-top: 0;">Plataforma de Evaluación IA</p>
+        </div>
+    <div class="menu-container">
+       <!-- Información Superior Institucional -->
+        <div class="header-info">
+            <div class="menu-logos">
+                <!-- Usamos ../ para asegurar que encuentre la carpeta img -->
+                <img src="../img/logo-upgop.png" alt="UPGOP" class="menu-logo-uni">
+                <img src="../img/logo-ibio.jpg" alt="IBIO" class="menu-logo-carrera">
+            </div>
+            
+            <h2 style="color: #002045; margin-bottom: 5px;">Panel de Control</h2>
+            <p style="margin-top: 0;">Usuario activo: <span id="userEmail">Cargando...</span></p>
+            <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
+        </div>
 
-     <!-- Script exclusivo para el menú -->
-    <script type="module" src="/js/menu_cierre.js"></script>
+     <!-- Corrección: Se usan ../ para salir de la carpeta 'pages' y entrar a 'js' -->
+    <script type="module" src="../js/menu_cierre.js"></script>
 </body>
 </html>
