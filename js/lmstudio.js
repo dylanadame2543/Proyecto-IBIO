@@ -19,7 +19,7 @@ async function extractTextFromPDF(file) {
 // Función para comunicarse con la Inteligencia Artificial en la Nube (Groq API)
 async function consultarCloudIA(textdocument) {
     const urlCloud = 'https://api.groq.com/openai/v1/chat/completions'; 
-    const apiKey = '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'; 
+    const apiKey = '_API_KEY_';
     
     const payload = {
         model: "llama-3.3-70b-versatile", 
