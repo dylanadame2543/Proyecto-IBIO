@@ -43,32 +43,64 @@ if (btnModulo1) {
         window.location.href = "Encuesta.html";
     });
 }
-// --- LÓGICA DEL MÓDULO 2: RESULTADOS ---
+// --- LÓGICA DEL MÓDULO 2: RESULTADOS (TABLA DINÁMICA) ---
 const panelResultados = document.getElementById('panelResultados');
-const resultadoGuardado = localStorage.getItem('resultadoCV');
+// Obtenemos el historial de la memoria y lo convertimos de vuelta a objeto
+const historialGuardado = JSON.parse(localStorage.getItem('historialCVs')) || [];
 
-// Si existe el panel en esta página y hay un resultado guardado en memoria
-if (panelResultados && resultadoGuardado) {
-    panelResultados.innerHTML = `
-        <h3 style="color: #13696a; margin-bottom: 15px;">✓ Pre-evaluación IA Completada</h3>
-        
-        <p style="background-color: #eaf1ff; padding: 15px; border-left: 5px solid #0056b3; font-weight: bold; margin-bottom: 20px; border-radius: 0 4px 4px 0;">
-            ${resultadoGuardado}
-        </p>
-        
-        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; color: #856404; font-size: 0.95em; border: 1px solid #ffeeba;">
-            <strong>⚠️ Estado del Trámite (En Revisión):</strong><br>
-            Su perfil ha sido procesado por nuestro modelo de Inteligencia Artificial. Por favor, espere mientras el Comité Académico valida esta pre-evaluación. Recibirá el dictamen final en su correo institucional.
-        </div>
-        
-        <button id="btnLimpiar" style="margin-top: 20px; background-color: #e53e3e; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">
-            Procesar nuevo candidato
-        </button>
-    `;
+if (panelResultados) {
+    if (historialGuardado.length > 0) {
+        // Construimos el esqueleto de la tabla
+        let tablaHTML = `
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <thead>
+                        <tr style="background-color: #002045; color: white;">
+                            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Fecha de Evaluación</th>
+                            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Candidato</th>
+                            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Dictamen IA (Nivel de Estudios)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
 
-    // Botón para limpiar la memoria y hacer una nueva encuesta
-    document.getElementById('btnLimpiar').addEventListener('click', () => {
-        localStorage.removeItem('resultadoCV');
-        window.location.reload(); // Recarga la página para mostrar el panel vacío
-    });
+        // Iteramos sobre el arreglo de forma inversa para ver el CV más reciente arriba
+        historialGuardado.reverse().forEach(item => {
+            tablaHTML += `
+                <tr style="border-bottom: 1px solid #eee; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9ff'" onmouseout="this.style.backgroundColor='white'">
+                    <td style="padding: 15px; border: 1px solid #eee; font-size: 0.9em; color: #718096;">${item.fecha}</td>
+                    <td style="padding: 15px; border: 1px solid #eee; font-weight: bold; color: #13696a;">${item.perfil}</td>
+                    <td style="padding: 15px; border: 1px solid #eee; font-size: 0.95em; color: #2d3748;">${item.dictamen}</td>
+                </tr>
+            `;
+        });
+
+        tablaHTML += `
+                    </tbody>
+                </table>
+            </div>
+            <button id="btnLimpiar" style="background-color: #e53e3e; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: opacity 0.3s;">
+                Borrar Historial de Evaluaciones
+            </button>
+        `;
+
+        panelResultados.innerHTML = tablaHTML;
+
+        // Botón para vaciar la base de datos local y limpiar la tabla
+        document.getElementById('btnLimpiar').addEventListener('click', () => {
+            if(confirm("¿Estás seguro de que deseas borrar todo el historial de la Inteligencia Artificial?")) {
+                localStorage.removeItem('historialCVs');
+                window.location.reload(); 
+            }
+        });
+    } else {
+        // Mensaje cuando la tabla está vacía
+        panelResultados.innerHTML = `
+            <div style="background-color: #f8f9ff; padding: 30px; text-align: center; border: 2px dashed #cbd5e0; border-radius: 8px;">
+                <span style="font-size: 2em; display: block; margin-bottom: 10px;">📊</span>
+                <p style="color: #718096; font-size: 1.1em; font-weight: bold;">Base de datos vacía.</p>
+                <p style="color: #a0aec0; font-size: 0.9em;">Aún no se ha evaluado ningún currículum. Ve al Módulo 1 para procesar un documento.</p>
+            </div>
+        `;
+    }
 }

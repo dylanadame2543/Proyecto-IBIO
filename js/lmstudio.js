@@ -1,9 +1,10 @@
-pdfjslib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+// Corrección: Es pdfjsLib con 'L' mayúscula
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// Función para extraer texto de un archivo PDF
+// Función para extraer texto de un archivo PDF localmente en el navegador
 async function extractTextFromPDF(file) {
     const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjslib.getDocument(arrayBuffer).promise;
+    const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
     let textContent = '';
     
     for (let i = 1; i <= pdf.numPages; i++) {
@@ -15,13 +16,13 @@ async function extractTextFromPDF(file) {
     return textContent.replace(/\s+/g, ' ').replace(/\n+/g, ' ').trim();
 }
 
-// Función para comunicarse con el servidor local de LM Studio
-async function consultarLMstudio(textdocument) {
-    // Puerto estándar de LM Studio por defecto
-    const urlLMstudio = 'http://localhost:1234/v1/chat/completions'; 
+// Función para comunicarse con la Inteligencia Artificial en la Nube (Groq API)
+async function consultarCloudIA(textdocument) {
+    const urlCloud = 'https://api.groq.com/openai/v1/chat/completions'; 
+    const apiKey = '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'; 
     
     const payload = {
-        model: "local-model", // LM studio ignora este campo si solo hay un modelo cargado
+        model: "llama-3.3-70b-versatile", 
         messages: [
             {
                 role: "system",
@@ -35,18 +36,20 @@ async function consultarLMstudio(textdocument) {
         temperature: 0.1, 
     };
 
-    const response = await fetch(urlLMstudio, {
+    const response = await fetch(urlCloud, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
         body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
-        throw new Error(`Error del servidor IA: ${response.statusText}`);
+        throw new Error(`Error en el servidor de la nube: ${response.statusText}`);
     }
 
     const data = await response.json();
-    // Corrección del error tipográfico: es "choices", no "choises"
     return data.choices[0].message.content; 
 }
 
@@ -62,41 +65,47 @@ if (PDFInput) {
 
         // Mostrar al usuario que estamos procesando
         resultadoBox.style.display = 'block';
-        textoResultado.textContent = "Extrayendo texto del PDF e inicializando IA... Por favor espera.";
+        textoResultado.textContent = "Extrayendo texto del PDF... Conectando con la nube de Groq.";
         textoResultado.style.color = "#4a5568";
 
         try {
             const extractedText = await extractTextFromPDF(file);
             
-            // Corrección de la validación matemática de longitud
             if (!extractedText || extractedText.length === 0) {
                 textoResultado.textContent = "Error: El PDF no contiene texto extraíble (puede ser una imagen escaneada).";
                 textoResultado.style.color = "red";
                 return;
             }
 
-            textoResultado.textContent = "Consultando con LM Studio. Procesando inferencia...";
+            textoResultado.textContent = "Analizando currículum mediante Inteligencia Artificial...";
             
-            // Enviar a la IA y esperar respuesta
-            const lmstudioResponse = await consultarLMstudio(extractedText);
+            // Enviar a la IA en la nube y esperar respuesta
+            const cloudResponse = await consultarCloudIA(extractedText);
             
-            // 1. Informamos al usuario que la IA terminó
-            textoResultado.textContent = "¡Análisis completado! Redirigiendo al panel de resultados...";
+            // 1. Informamos éxito
+            textoResultado.textContent = "¡Análisis completado! Guardando en el historial y redirigiendo...";
             textoResultado.style.color = "green";
             textoResultado.style.fontWeight = "bold";
 
-            // 2. Guardamos la respuesta de la IA en la memoria del navegador
-            localStorage.setItem('resultadoCV', lmstudioResponse);
+            // 2. Guardamos en el historial del navegador
+            let historialResultados = JSON.parse(localStorage.getItem('historialCVs')) || [];
+            
+            historialResultados.push({
+                fecha: new Date().toLocaleString(),
+                perfil: "Candidato " + (historialResultados.length + 1),
+                dictamen: cloudResponse
+            });
 
-            // 3. Esperamos 2 segundos y redirigimos al menú, bajando directo a la sección #resultados
+            localStorage.setItem('historialCVs', JSON.stringify(historialResultados));
+
+            // 3. Redirigimos al menú, directo a la tabla de resultados
             setTimeout(() => {
                 window.location.href = "Menu_principal.html#resultados";
             }, 2000);
 
         } catch (error) {
-            // AQUÍ ESTÁ EL CIERRE CORRECTO DEL CÓDIGO
             console.error('Error procesando:', error);
-            textoResultado.textContent = "Error al conectar con la IA. Asegúrate de que LM Studio esté encendido y el servidor local iniciado en el puerto 1234.";
+            textoResultado.textContent = "Error al conectar con la nube. Verifica tu conexión a internet o la validez de la API Key.";
             textoResultado.style.color = "red";
         }
     });
