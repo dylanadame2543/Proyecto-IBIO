@@ -34,7 +34,7 @@ async function consultarCloudIA(textdocument) {
                 content: `[CURRÍCULUM]: ${textdocument}`
             }
         ],
-        temperature: 0.1, 
+        temperature: 0.0, 
     };
 
     const response = await fetch(urlCloud, {
