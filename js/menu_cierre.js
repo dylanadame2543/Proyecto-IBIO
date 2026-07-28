@@ -17,18 +17,35 @@ const auth = getAuth(app);
 // Referencias exclusivas de la página del menú
 const userEmailSpan = document.getElementById('userEmail');
 const btnLogout = document.getElementById('btnLogout');
-const btnModulo1 = document.getElementById('btnModulo1'); // Nueva referencia
+const btnModulo1 = document.getElementById('btnModulo1');
 
 // Protección de la ruta
 onAuthStateChanged(auth, (user) => {
     if (user) {
         userEmailSpan.textContent = user.email;
     } else {
-        // Redirige correctamente al archivo Inicio.html que está en la carpeta principal
         window.location.href = "../Inicio.html";
     }
 });
+// Referencia al botón del Módulo 2
+const btnModulo2 = document.getElementById('btnModulo2');
 
+if (btnModulo2) {
+    btnModulo2.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Buscamos si el panel de resultados está en la misma página
+        const panelResultados = document.getElementById('panelResultados') || document.getElementById('resultados');
+        
+        if (panelResultados) {
+            // Si estamos en la misma página, hacemos scroll suave hacia la tabla
+            panelResultados.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            // Si estamos en otra página, redirigimos al ancla de resultados del menú principal
+            window.location.href = "Menu_principal.html#resultados";
+        }
+    });
+}
 // Cerrar sesión
 btnLogout.addEventListener('click', () => {
     signOut(auth).catch((error) => {
@@ -39,13 +56,12 @@ btnLogout.addEventListener('click', () => {
 // Evento para redirigir a la página de encuestas
 if (btnModulo1) {
     btnModulo1.addEventListener('click', () => {
-        // Redirige a Encuesta.html (ambos están en la misma carpeta 'pages')
         window.location.href = "Encuesta.html";
     });
 }
-// --- LÓGICA DEL MÓDULO 2: RESULTADOS (TABLA DINÁMICA) ---
+
+// --- LÓGICA DEL MÓDULO 2: RESULTADOS (TABLA DINÁMICA CON SEMÁFORO) ---
 const panelResultados = document.getElementById('panelResultados');
-// Obtenemos el historial de la memoria y lo convertimos de vuelta a objeto
 const historialGuardado = JSON.parse(localStorage.getItem('historialCVs')) || [];
 
 if (panelResultados) {
@@ -65,12 +81,36 @@ if (panelResultados) {
         `;
 
         // Iteramos sobre el arreglo de forma inversa para ver el CV más reciente arriba
-        historialGuardado.reverse().forEach(item => {
+        historialGuardado.slice().reverse().forEach(item => {
+            let colorFondo = "#edf2f7";
+            let textoSemáforo = "PENDIENTE";
+            let colorBadge = "#718096";
+
+            const dictamenUpper = (item.dictamen || "").toUpperCase();
+            if (dictamenUpper.includes("VERDE")) {
+                colorFondo = "#f0fff4";
+                textoSemáforo = "🟢 FACTIBLE PARA CONTRATAR";
+                colorBadge = "#38a169"; // Verde
+            } else if (dictamenUpper.includes("ROJO")) {
+                colorFondo = "#fff5f5";
+                textoSemáforo = "🔴 NO FACTIBLE";
+                colorBadge = "#e53e3e"; // Rojo
+            } else {
+                colorFondo = "#fffaf0";
+                textoSemáforo = "🟡 EN REVISIÓN / CONDICIONADO";
+                colorBadge = "#d69e2e"; // Amarillo/Anaranjado
+            }
+
             tablaHTML += `
-                <tr style="border-bottom: 1px solid #eee; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f8f9ff'" onmouseout="this.style.backgroundColor='white'">
+                <tr style="border-bottom: 1px solid #eee; background-color: ${colorFondo};">
                     <td style="padding: 15px; border: 1px solid #eee; font-size: 0.9em; color: #718096;">${item.fecha}</td>
                     <td style="padding: 15px; border: 1px solid #eee; font-weight: bold; color: #13696a;">${item.perfil}</td>
-                    <td style="padding: 15px; border: 1px solid #eee; font-size: 0.95em; color: #2d3748;">${item.dictamen}</td>
+                    <td style="padding: 15px; border: 1px solid #eee;">
+                        <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; color: white; background-color: ${colorBadge}; font-size: 0.85em; font-weight: bold; margin-bottom: 8px;">
+                            ${textoSemáforo}
+                        </span>
+                        <div style="font-size: 0.95em; color: #2d3748; white-space: pre-line;">${item.dictamen}</div>
+                    </td>
                 </tr>
             `;
         });
@@ -79,28 +119,10 @@ if (panelResultados) {
                     </tbody>
                 </table>
             </div>
-            <button id="btnLimpiar" style="background-color: #e53e3e; color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: opacity 0.3s;">
-                Borrar Historial de Evaluaciones
-            </button>
         `;
 
         panelResultados.innerHTML = tablaHTML;
-
-        // Botón para vaciar la base de datos local y limpiar la tabla
-        document.getElementById('btnLimpiar').addEventListener('click', () => {
-            if(confirm("¿Estás seguro de que deseas borrar todo el historial de la Inteligencia Artificial?")) {
-                localStorage.removeItem('historialCVs');
-                window.location.reload(); 
-            }
-        });
     } else {
-        // Mensaje cuando la tabla está vacía
-        panelResultados.innerHTML = `
-            <div style="background-color: #f8f9ff; padding: 30px; text-align: center; border: 2px dashed #cbd5e0; border-radius: 8px;">
-                <span style="font-size: 2em; display: block; margin-bottom: 10px;">📊</span>
-                <p style="color: #718096; font-size: 1.1em; font-weight: bold;">Base de datos vacía.</p>
-                <p style="color: #a0aec0; font-size: 0.9em;">Aún no se ha evaluado ningún currículum. Ve al Módulo 1 para procesar un documento.</p>
-            </div>
-        `;
+        panelResultados.innerHTML = '<p style="text-align: center; color: #718096; padding: 20px;">Aún no se ha evaluado ningún currículum en esta sesión.</p>';
     }
 }

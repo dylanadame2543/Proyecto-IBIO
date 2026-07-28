@@ -17,20 +17,21 @@ async function extractTextFromPDF(file) {
 }
 
 // Función para comunicarse con la Inteligencia Artificial en la Nube (Groq API)
+// Función para comunicarse con la Inteligencia Artificial en la Nube (Groq API)
 async function consultarCloudIA(textdocument) {
     const urlCloud = 'https://api.groq.com/openai/v1/chat/completions'; 
-    const apiKey = '_API_KEY_';
+    const apiKey = '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'; 
     
     const payload = {
         model: "llama-3.3-70b-versatile", 
         messages: [
             {
                 role: "system",
-                content: "Eres un asistente experto en recursos humanos académicos."
+                content: "Eres un experto en recursos humanos. Analiza el CV y responde estrictamente con este formato exacto: \nESTATUS: [VERDE o AMARILLO o ROJO]\nFACTIBILIDAD: [Texto indicando si es factible contratar y por qué en una línea]\nRESUMEN: [Breve descripción del nivel de estudios]"
             },
             {
                 role: "user",
-                content: `Analiza el siguiente currículum en formato de texto y responde brevemente: ¿Qué nivel de estudios más alto tiene la persona que envió el currículum? [CURRÍCULUM]: ${textdocument}`
+                content: `[CURRÍCULUM]: ${textdocument}`
             }
         ],
         temperature: 0.1, 
@@ -46,7 +47,8 @@ async function consultarCloudIA(textdocument) {
     });
 
     if (!response.ok) {
-        throw new Error(`Error en el servidor de la nube: ${response.statusText}`);
+        const errorDetalle = await response.text();
+        throw new Error(`Código ${response.status} - ${errorDetalle}`);
     }
 
     const data = await response.json();
@@ -103,9 +105,10 @@ if (PDFInput) {
                 window.location.href = "Menu_principal.html#resultados";
             }, 2000);
 
-        } catch (error) {
+       } catch (error) {
             console.error('Error procesando:', error);
-            textoResultado.textContent = "Error al conectar con la nube. Verifica tu conexión a internet o la validez de la API Key.";
+            // Esto imprimirá el error técnico exacto en la interfaz
+            textoResultado.textContent = "Error técnico: " + error.message;
             textoResultado.style.color = "red";
         }
     });

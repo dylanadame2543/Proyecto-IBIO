@@ -117,3 +117,24 @@ html {
     max-width: 800px;
     margin: 0 auto;
 }
+/* Estilo profesional para los botones de módulos */
+.btn-modulo {
+    display: inline-block;
+    background-color: #002045; /* Azul institucional */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto al pasar el mouse por encima */
+.btn-modulo:hover {
+    background-color: #13696a; /* Tono verde/azulado institucional */
+    transform: translateY(-2px);
+}
