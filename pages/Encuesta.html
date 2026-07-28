@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Evaluar CV - IBIO</title>
+    <link rel="stylesheet" href="../style/encuesta.css">
+</head>
+<body>
+    
+    <!-- Barra de Navegación Superior (Consistente con el menú) -->
+    <header class="navbar">
+        <div class="nav-logos">
+            <img src="../img/logo-ibio.jpg" alt="IBIO" class="logo-small">
+            <img src="../img/logo-upgop.png" alt="UPGOP" class="logo-small">
+        </div>
+        <button onclick="window.location.href='Menu_principal.html'" class="btn-outline-small">← Volver al Menú</button>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="evaluacion-container">
+        <div class="form-card">
+            <span class="badge">EVALUACIÓN CON INTELIGENCIA ARTIFICIAL</span>
+            <h2>Cargar Documentación del Candidato</h2>
+            <p class="instrucciones">Sube el currículum vitae en formato PDF. Nuestro modelo de lenguaje (LM Studio) procesará el documento y extraerá automáticamente el nivel máximo de estudios para la pre-aprobación académica.</p>
+            
+            <!-- Zona de Carga de Archivo -->
+            <div class="upload-zone">
+                <div class="upload-icon">📄</div>
+                <label for="pdfInput" class="upload-label">Seleccionar currículum (Solo PDF)</label>
+                <input type="file" id="pdfInput" accept="application/pdf">
+                <p class="file-hint">El procesamiento del texto puede tardar unos segundos dependiendo del tamaño del archivo.</p>
+            </div>
+
+            <!-- Caja dinámica donde LM Studio imprimirá los mensajes de espera -->
+            <div id="resultadoIA" class="resultado-box" style="display: none;">
+                <h4 style="color: #002045; margin-bottom: 8px;">Estado del Proceso:</h4>
+                <p id="textoResultado" style="font-size: 1.05em; font-weight: bold;">Esperando documento...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- 1. Librería de PDF.js para leer el documento -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- 2. Tu script de lógica de IA -->
+    <script type="module" src="../js/lmstudio.js"></script>
+</body>
+</html>

@@ -4,35 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal - IBIO</title>
-    <!-- Corrección: Se usan ../ para salir de la carpeta 'pages' y entrar a 'style' -->
     <link rel="stylesheet" href="../style/Menu_principal.css">
 </head>
 <body>
-<!-- Sección de Identidad Institucional -->
-        <div class="logos-container">
-            <img src="/img/LogoUPGOP.png" alt="Universidad Politécnica Gómez Palacio" class="logo-uni">
-            <img src="/img/IBIO.png" alt="Ingeniería en Biotecnología IBIO" class="logo-carrera">
+
+    <!-- 1. BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+        <div class="nav-logos">
+            <img src="../img/logo-ibio.jpg" alt="IBIO" class="logo-small">
+            <img src="../img/logo-upgop.png" alt="UPGOP" class="logo-small">
         </div>
         
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h2 style="margin-top: 10px; margin-bottom: 5px; color: #002045;">Acceso Docente</h2>
-            <p style="color: #666; font-size: 0.9em; margin-top: 0;">Plataforma de Evaluación IA</p>
+        <nav class="nav-links">
+            <a href="#requisitos">Requisitos</a>
+            <a href="#informacion">Información</a>
+            <a href="#resultados">Resultados</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+        
+        <div class="nav-actions">
+            <span class="user-badge">👤 <span id="userEmail">Cargando...</span></span>
+            <button id="btnLogout" class="btn-outline-small">Cerrar Sesión</button>
         </div>
-    <div class="menu-container">
-       <!-- Información Superior Institucional -->
-        <div class="header-info">
-            <div class="menu-logos">
-                <!-- Usamos ../ para asegurar que encuentre la carpeta img -->
-                <img src="../img/logo-upgop.png" alt="UPGOP" class="menu-logo-uni">
-                <img src="../img/logo-ibio.jpg" alt="IBIO" class="menu-logo-carrera">
-            </div>
-            
-            <h2 style="color: #002045; margin-bottom: 5px;">Panel de Control</h2>
-            <p style="margin-top: 0;">Usuario activo: <span id="userEmail">Cargando...</span></p>
-            <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
-        </div>
+    </header>
 
-     <!-- Corrección: Se usan ../ para salir de la carpeta 'pages' y entrar a 'js' -->
+    <!-- 2. SECCIÓN PRINCIPAL (FOTO GIGANTE) -->
+    <main class="hero-section">
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <span class="badge">DEPARTAMENTO DE BIOQUÍMICA</span>
+            <h1>Convocatoria Docente:<br>Carrera de IBIO</h1>
+            <p>Únete a un equipo de excelencia académica. Buscamos investigadores y docentes apasionados por la bioquímica para formar a la próxima generación de líderes científicos.</p>
+            
+            <div class="hero-buttons">
+                <button id="btnModulo1" class="btn-primary">Módulo 1: Evaluar CV</button>
+                <button class="btn-outline">Módulo 2: Resultados</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. SECCIONES DE INFORMACIÓN (Afuera del main y del header) -->
+    <section id="requisitos" class="content-section">
+        <h2>Requisitos de Excelencia</h2>
+        <p>Buscamos perfiles con Doctorado (Ph.D.) obligatorio en Bioquímica, Biología Molecular o áreas afines, con trayectoria demostrable en publicaciones científicas de alto impacto (Q1/Q2).</p>
+    </section>
+
+    <section id="informacion" class="content-section bg-alt">
+        <h2>Información del Departamento</h2>
+        <p>El Departamento de Bioquímica de IBIO lidera la investigación en biología estructural y proteómica. Ofrecemos laboratorios de última generación y financiamiento semilla para proyectos innovadores.</p>
+    </section>
+
+    <section id="resultados" class="content-section">
+        <h2>Módulo 2: Resultados de Evaluación</h2>
+        <!-- Esta tarjeta cambiará dinámicamente con JavaScript -->
+        <div id="panelResultados" class="resultados-card">
+            <p>Aún no se ha evaluado ningún currículum en esta sesión.</p>
+        </div>
+    </section>
+
+    <section id="contacto" class="content-section bg-alt">
+        <h2>Contacto</h2>
+        <p>¿Dudas sobre la plataforma técnica o los términos de la convocatoria?<br>
+        <strong>Email:</strong> recruitment@biochem-institute.edu</p>
+    </section>
+
+    <!-- 4. SCRIPTS (Siempre van al final del body) -->
     <script type="module" src="../js/menu_cierre.js"></script>
 </body>
 </html>

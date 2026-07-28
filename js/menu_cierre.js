@@ -43,3 +43,32 @@ if (btnModulo1) {
         window.location.href = "Encuesta.html";
     });
 }
+// --- LÓGICA DEL MÓDULO 2: RESULTADOS ---
+const panelResultados = document.getElementById('panelResultados');
+const resultadoGuardado = localStorage.getItem('resultadoCV');
+
+// Si existe el panel en esta página y hay un resultado guardado en memoria
+if (panelResultados && resultadoGuardado) {
+    panelResultados.innerHTML = `
+        <h3 style="color: #13696a; margin-bottom: 15px;">✓ Pre-evaluación IA Completada</h3>
+        
+        <p style="background-color: #eaf1ff; padding: 15px; border-left: 5px solid #0056b3; font-weight: bold; margin-bottom: 20px; border-radius: 0 4px 4px 0;">
+            ${resultadoGuardado}
+        </p>
+        
+        <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; color: #856404; font-size: 0.95em; border: 1px solid #ffeeba;">
+            <strong>⚠️ Estado del Trámite (En Revisión):</strong><br>
+            Su perfil ha sido procesado por nuestro modelo de Inteligencia Artificial. Por favor, espere mientras el Comité Académico valida esta pre-evaluación. Recibirá el dictamen final en su correo institucional.
+        </div>
+        
+        <button id="btnLimpiar" style="margin-top: 20px; background-color: #e53e3e; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            Procesar nuevo candidato
+        </button>
+    `;
+
+    // Botón para limpiar la memoria y hacer una nueva encuesta
+    document.getElementById('btnLimpiar').addEventListener('click', () => {
+        localStorage.removeItem('resultadoCV');
+        window.location.reload(); // Recarga la página para mostrar el panel vacío
+    });
+}
