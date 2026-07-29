@@ -65,7 +65,7 @@ if (PDFInput) {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Mostrar al usuario que estamos procesando
+        // Mostrar al usuario que estamos procesando el PDF
         resultadoBox.style.display = 'block';
         textoResultado.textContent = "Extrayendo texto del PDF... Conectando con la nube de Groq.";
         textoResultado.style.color = "#4a5568";
@@ -100,7 +100,7 @@ if (PDFInput) {
 
             localStorage.setItem('historialCVs', JSON.stringify(historialResultados));
 
-            // 3. Redirigimos al menú, directo a la tabla de resultados
+            // 3. Redirigimos al menú, directo a la tabla de resultados extraidos y analizados de la IA
             setTimeout(() => {
                 window.location.href = "Menu_principal.html#resultados";
             }, 2000);
