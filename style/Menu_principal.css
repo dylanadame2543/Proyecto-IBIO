@@ -1,0 +1,140 @@
+/* Reset básico para limpiar márgenes por defecto del navegador */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; }
+
+/* --- BARRA DE NAVEGACIÓN --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-logos { display: flex; align-items: center; gap: 15px; }
+.logo-small { height: 40px; object-fit: contain; }
+
+.nav-links a {
+    text-decoration: none;
+    color: #4a5568;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: color 0.3s;
+}
+.nav-links a:hover { color: #13696a; } /* Verde IBIO */
+
+.nav-actions { display: flex; align-items: center; gap: 20px; }
+.user-badge { font-size: 0.85em; color: #718096; font-weight: bold; }
+.btn-outline-small {
+    background: transparent; border: 1px solid #e2e8f0; padding: 8px 15px;
+    border-radius: 4px; cursor: pointer; color: #e53e3e; font-weight: bold;
+}
+.btn-outline-small:hover { background: #fff5f5; }
+
+/* --- SECCIÓN HERO (Pantalla Principal) --- */
+.hero-section {
+    position: relative;
+    height: calc(100vh - 74px); /* Altura total de la pantalla menos el menú */
+    /* Imagen de laboratorio provisional para replicar tu diseño */
+    background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+}
+
+/* Filtro oscuro tipo cristal sobre la imagen */
+.hero-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, rgba(11,28,48,0.95) 0%, rgba(11,28,48,0.7) 50%, rgba(11,28,48,0.2) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative; z-index: 2; color: white; max-width: 650px;
+}
+
+/* Etiqueta verde superior */
+.badge {
+    background-color: rgba(19, 105, 106, 0.3); color: #4fd1c5;
+    padding: 5px 12px; border-radius: 20px; font-size: 0.8em;
+    font-weight: bold; letter-spacing: 1px; display: inline-block; margin-bottom: 20px;
+}
+
+.hero-content h1 { font-size: 3.5em; line-height: 1.1; margin-bottom: 20px; }
+.hero-content p { font-size: 1.1em; line-height: 1.6; color: #cbd5e0; margin-bottom: 30px; }
+
+/* Botones Principales */
+.hero-buttons { display: flex; gap: 20px; }
+
+.btn-primary {
+    background-color: #13696a; color: white; border: none;
+    padding: 15px 30px; border-radius: 4px; font-size: 1em; font-weight: bold; cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-primary:hover { background-color: #0f5253; }
+
+.btn-outline {
+    background-color: transparent; color: white; border: 1px solid #cbd5e0;
+    padding: 15px 30px; border-radius: 4px; font-size: 1em; font-weight: bold; cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-outline:hover { background-color: rgba(255,255,255,0.1); }
+/* Deslizamiento suave para los anclajes del menú */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos de las secciones integradas */
+.content-section {
+    padding: 80px 10%;
+    text-align: center;
+    background-color: white;
+}
+
+.content-section.bg-alt {
+    background-color: #f8f9ff;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.content-section h2 {
+    color: #002045;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+.content-section p {
+    color: #4a5568;
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+/* Estilo profesional para los botones de módulos */
+.btn-modulo {
+    display: inline-block;
+    background-color: #002045; /* Azul institucional */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto al pasar el mouse por encima */
+.btn-modulo:hover {
+    background-color: #13696a; /* Tono verde/azulado institucional */
+    transform: translateY(-2px);
+}

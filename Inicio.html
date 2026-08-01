@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBIO Encuesta - Acceso</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="./style/inicio.css">
+    <link rel="icon" type="image/png" href="..//img/Logo IBIO.png">
+</head>
+<body>
+
+    <div class="auth-container">
+   <!-- Sección de Identidad Institucional -->
+        <div class="logos-container">
+            <img src="/img/LogoUPGOP.png" alt="Universidad Politécnica Gómez Palacio" class="logo-uni">
+            <img src="/img/IBIO.png" alt="Ingeniería en Biotecnología IBIO" class="logo-carrera">
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="margin-top: 10px; margin-bottom: 5px; color: #002045;">Acceso Docente</h2>
+            <p style="color: #666; font-size: 0.9em; margin-top: 0;">Plataforma de Evaluación</p>
+        </div>
+        
+        <!-- Formulario Semántico -->
+        <form id="loginForm" onsubmit="event.preventDefault();">
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px;">
+                <label for="email" style="font-weight: bold; font-size: 0.9em;">Correo Institucional:</label>
+                <input type="email" id="email" placeholder="ejemplo@universidad.edu" required>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px;">
+                <label for="password" style="font-weight: bold; font-size: 0.9em;">Contraseña:</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            
+            <!-- Botones -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button type="button" id="btnLogin">Iniciar Sesión</button>
+                <button type="button" id="btnRegister">Registrar Nuevo Usuario</button>
+            </div>
+        </form>
+        
+        <p id="statusMessage"></p>
+    </div>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

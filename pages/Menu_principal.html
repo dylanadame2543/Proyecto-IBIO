@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal - IBIO</title>
+    <link rel="stylesheet" href="../style/Menu_principal.css">
+    <link rel="icon" type="image/png" href="..//img/Logo IBIO.png">
+</head>
+
+<body>
+
+    <!-- 1. BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+        <div class="nav-logos">
+            <img src="../img/IBIO.png" alt="IBIO" class="logo-small">
+        </div>
+
+        <nav class="nav-links">
+            <a href="#requisitos">Requisitos</a>
+            <a href="#informacion">Información</a>
+            <a href="#resultados">Resultados</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="nav-actions">
+            <span class="user-badge">👤 <span id="userEmail">Cargando...</span></span>
+            <button id="btnLogout" class="btn-outline-small">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <!-- 2. SECCIÓN PRINCIPAL (FOTO GIGANTE) -->
+    <main class="hero-section">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <span class="badge">DEPARTAMENTO DE BIOQUÍMICA</span>
+            <h1>Convocatoria Docente:<br>Carrera de IBIO</h1>
+            <p>Únete a un equipo de excelencia académica. Buscamos investigadores y docentes apasionados por la
+                bioquímica para formar a la próxima generación de líderes científicos.</p>
+
+            <div class="hero-buttons">
+                <button id="btnModulo1" class="btn-primary">Módulo 1: Evaluar CV</button>
+                <button id="btnModulo2" class="btn-modulo">Módulo 2: Resultados</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. SECCIONES DE INFORMACIÓN (Afuera del main y del header) -->
+    <section id="requisitos" class="content-section">
+        <h2>Requisitos de Excelencia</h2>
+        <p>Buscamos perfiles con Doctorado (Ph.D.) obligatorio en Bioquímica, Biología Molecular o áreas afines, con
+            trayectoria demostrable en publicaciones científicas de alto impacto (Q1/Q2).</p>
+    </section>
+
+    <section id="informacion" class="content-section bg-alt">
+        <h2>Información del Departamento</h2>
+        <p>El Departamento de Bioquímica del "IBIO" se posiciona como líder en la investigación de biología estructural
+            y proteómica.
+            Respaldamos nuestro compromiso con la excelencia educativa ofreciendo formación académica de primer nivel,
+            laboratorios de última generación y financiamiento semilla para potenciar proyectos innovadores.</p>
+    </section>
+
+    <section id="resultados" class="content-section">
+        <h2>Módulo 2: Resultados de Evaluación</h2>
+        <!-- Esta tarjeta cambiará dinámicamente con JavaScript -->
+        <div id="panelResultados" class="resultados-card">
+            <p>Aún no se ha evaluado ningún currículum en esta sesión.Para agregar uno, haz clic en "Evaluar CV" en el
+                módulo 1.</p>
+        </div>
+    </section>
+
+    <section id="contacto" class="content-section bg-alt">
+        <h2>Contacto</h2>
+        <p>¿Dudas sobre la plataforma técnica o los términos de la convocatoria?<br>
+            <strong>Email:</strong> recruitment@biochem-institute.edu
+        </p>
+    </section>
+
+    <!-- 4. SCRIPTS (Siempre van al final del body) -->
+    <script type="module" src="../js/menu_cierre.js"></script>
+</body>
+
+</html>

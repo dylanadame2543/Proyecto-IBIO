@@ -1,0 +1,65 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; }
+
+/* --- Barra de navegación --- */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    background-color: white; padding: 15px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-logos { display: flex; align-items: center; gap: 15px; }
+.logo-small { height: 40px; object-fit: contain; }
+
+.btn-outline-small {
+    background: transparent; border: 1px solid #002045; padding: 8px 15px;
+    border-radius: 4px; cursor: pointer; color: #002045; font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-outline-small:hover { background: #002045; color: white; }
+
+/* --- Contenedor Principal --- */
+.evaluacion-container {
+    display: flex; justify-content: center; padding: 50px 20px;
+}
+
+.form-card {
+    background: white; width: 100%; max-width: 750px;
+    padding: 50px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.badge {
+    background-color: rgba(19, 105, 106, 0.1); color: #13696a; /* Verde IBIO */
+    padding: 5px 12px; border-radius: 20px; font-size: 0.85em;
+    font-weight: bold; letter-spacing: 1px; display: inline-block; margin-bottom: 25px;
+}
+
+.form-card h2 { color: #002045; margin-bottom: 15px; font-size: 2.2em; }
+.instrucciones { color: #4a5568; line-height: 1.6; margin-bottom: 30px; font-size: 1.1em; }
+
+/* --- Zona de carga de archivos --- */
+.upload-zone {
+    border: 2px dashed #cbd5e0; background-color: #f8f9ff;
+    padding: 40px 20px; border-radius: 8px; transition: border-color 0.3s;
+    position: relative; margin-bottom: 20px;
+}
+.upload-zone:hover { border-color: #13696a; }
+
+.upload-icon { font-size: 3.5em; margin-bottom: 15px; }
+
+.upload-label {
+    display: block; font-weight: bold; color: #002045; margin-bottom: 15px; font-size: 1.15em;
+}
+
+input[type="file"] {
+    display: block; margin: 0 auto; color: #4a5568; cursor: pointer;
+    font-size: 0.95em;
+}
+
+.file-hint { font-size: 0.85em; color: #718096; margin-top: 15px; }
+
+/* --- Caja dinámica de Resultados/Estado --- */
+.resultado-box {
+    margin-top: 30px; padding: 20px; background-color: #eaf1ff;
+    border-left: 5px solid #13696a; border-radius: 4px; text-align: left;
+}
