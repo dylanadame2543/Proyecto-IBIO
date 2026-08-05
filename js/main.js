@@ -75,7 +75,7 @@ document.getElementById('btnLogin').addEventListener('click', () => {
             }, 1000);
         })
         .catch((error) => {
-            statusMessage.textContent = `Error al iniciar: ${error.message}`;
+            statusMessage.textContent = `Error al iniciar: ${error.message}`; // muestra el error en el mensaje de estado
             statusMessage.style.color = "red";
         });
 });

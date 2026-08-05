@@ -1,4 +1,4 @@
-// Corrección: Es pdfjsLib con 'L' mayúscula
+// Nota de Corrección: Es pdfjsLib con 'L' mayúscula
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 // Función para extraer texto de un archivo PDF localmente desde el navegador
@@ -35,7 +35,7 @@ async function consultarLocalIA(textdocument) {
             }
         ],
         temperature: 0.0,
-    };  //Nota: mejorar el prompt para que la IA devuelva un resultado más preciso y útil para la evaluación de candidatos.
+    };  //Nota interna: mejorar el prompt para que la IA devuelva un resultado más preciso y útil para la evaluación de candidatos. [Listo]
 
     let response;
     try {
